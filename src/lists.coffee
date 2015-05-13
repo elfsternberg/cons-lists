@@ -26,8 +26,7 @@ vectorToList = (v, p) ->
   if p >= v.length then return nil
   # Annoying, but since lists are represented as nested arrays, they
   # have to be intercepted first.  The use of duck-typing here is
-  # frustrating, but I suppose the eventual runtime will be doing
-  # something like this anyway for base types.
+  # frustrating.
   item = if pairp(v[p]) then v[p] else if vectorp(v[p]) then vectorToList(v[p]) else v[p]
   cons(item, vectorToList(v, p + 1))
 
@@ -40,10 +39,6 @@ listToVector = (l, v = []) ->
   return v if nilp l
   v.push if pairp (car l) then listToVector(car l) else (car l)
   listToVector (cdr l), v
-
-# This is the simplified version. It can't be used stock with reader,
-# because read() returns a rich version decorated with extra
-# information.
 
 metacadr = (m) ->
   seq = m.match(/c([ad]+)r/)[1].split('')
