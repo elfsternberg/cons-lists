@@ -2,6 +2,13 @@
 
 # docs: $(patsubst %.md,%.html,$(wildcard *.md))
 
+targets = lists.js reduce.js
+
+all: $(targets)
+
+%.js: src/%.coffee
+	coffee -c -o . $<
+
 %.html: %.md header.html footer.html
 	cat header.html > $@
 	pandoc $< >> $@
@@ -14,3 +21,5 @@ node_modules: package.json
 test: node_modules
 	@node_modules/.bin/mocha --compilers coffee:coffee-script/register
 
+clean: 
+	rm -f $(targets)

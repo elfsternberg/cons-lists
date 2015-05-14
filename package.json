@@ -5,6 +5,7 @@
   "main": "lists.js",
   "directories": {
     "test": "test"
+      
   },
   "dependencies": {
   },
@@ -13,7 +14,8 @@
     "mocha": "^2.1.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "install": "make all"
   },
   "repository": {
     "type": "git",
