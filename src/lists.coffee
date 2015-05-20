@@ -41,13 +41,13 @@ listToVector = (l, v = []) ->
   listToVector (cdr l), v
 
 metacadr = (m) ->
-  seq = m.match(/c([ad]+)r/)[1].split('')
+  ops = {'a': car, 'd': cdr}
+  seq = vectorToList m.match(/c([ad]+)r/)[1].split('').reverse()
   return (l) ->
     inner = (l, s) ->
-      return nil if nilp l
-      return l if s.length == 0
-      inner ((if s.pop() == 'a' then car else cdr)(l)), s
-    inner(l, seq)
+      return l if (nilp l) or (nilp s)
+      inner ops[(car s)](l), (cdr s)
+    inner l, seq
 
 module.exports =
   cons: cons

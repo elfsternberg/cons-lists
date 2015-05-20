@@ -15,4 +15,5 @@ bin/coffee
 bin/escodegen
 bin/esgenerate
 bin/mocha
+*.js
 
