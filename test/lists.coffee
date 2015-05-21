@@ -72,4 +72,7 @@ describe 'Metacadr Complex', ->
     ['caaddr', 'X']]
     do (t, v) ->
       it "The #{t} should read #{v}", ->
-        expect(metacadr(t)(mccomplex)).to.equal(v)
+        mcadr = metacadr(t)
+        expect(mcadr mccomplex).to.equal(v)
+        expect(mcadr mccomplex).to.equal(v)
+        expect(mcadr mccomplex).to.equal(v)
