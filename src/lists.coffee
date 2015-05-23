@@ -27,7 +27,8 @@ vectorToList = (v, p) ->
   # Annoying, but since lists are represented as nested arrays, they
   # have to be intercepted first.  The use of duck-typing here is
   # frustrating.
-  item = if pairp(v[p]) then v[p] else if vectorp(v[p]) then vectorToList(v[p]) else v[p]
+  item = if pairp(v[p]) then v[p] else
+    if vectorp(v[p]) then vectorToList(v[p]) else v[p]
   cons(item, vectorToList(v, p + 1))
 
 list = (v...) ->
