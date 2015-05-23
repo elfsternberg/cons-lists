@@ -31,7 +31,7 @@ vectorToList = (v, p) ->
   cons(item, vectorToList(v, p + 1))
 
 list = (v...) ->
-  ln = v.length;
+  ln = v.length
   (nl = (a) ->
     cons(v[a], if (a < ln) then (nl(a + 1)) else nil))(0)
 
