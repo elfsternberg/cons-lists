@@ -2,7 +2,8 @@ chai = require 'chai'
 chai.should()
 expect = chai.expect
 
-{listToVector, vectorToList, cons, list, nil, metacadr} = require '../src/lists'
+{listToVector, vectorToList, cons, list, nil,
+  metacadr, car, cdr, cadr} = require '../src/lists'
 
 describe "Basic list building", ->
   for [t, v] in [
@@ -14,6 +15,16 @@ describe "Basic list building", ->
     do (t, v) ->
       it "should match #{t}", ->
         expect(t).to.deep.equal(v)
+
+mcsimple = cons('a', cons('b', cons('c')))
+
+describe "Basic list traversing", ->
+  it "should car", ->
+    expect(car mcsimple).to.equal("a")
+  it "should cadr", ->
+    expect(cadr mcsimple).to.equal("b")
+  it "should car cdr cdr", ->
+    expect(car cdr cdr mcsimple).to.equal("c")
 
 describe 'Round trip equivalence', ->
   for [t, v] in [
