@@ -15,7 +15,6 @@ reduce = (lst, iteratee, memo, context) ->
     null
   memo
 
-
 map = (lst, iteratee, context, count = 0) ->
   return nil if nilp lst
   product = iteratee.call(context, (car lst), count, lst)
@@ -25,18 +24,20 @@ map = (lst, iteratee, context, count = 0) ->
 
 rmap = (lst, iteratee, context, count = 0) ->
   return nil if nilp lst
-  product = (if (nilp cdr lst) then nil else
+  rest = (if (nilp cdr lst) then nil else
     map((cdr lst), iteratee, context, count + 1))
-  cons product, iteratee.call(context, (car lst), count, lst)
+  product = iteratee.call(context, (car lst), count, lst)
+  cons rest, product
+
+reverse = (lst) -> rmap lst, (i) -> i
 
 filter = (lst, iteratee, context) ->
   return nil if nilp lst
   if iteratee.call(context, (car lst), lst)
-    cons (car lst), filter (cdr lst)
+    cons (car lst), filter (cdr lst), iteratee, context
   else
-    filter (cdr list)
+    filter (cdr list), iteratee, context
 
-reverse = (lst) -> rmap lst, (i) -> i
 
 module.exports =
   reduce: reduce
