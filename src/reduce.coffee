@@ -23,21 +23,21 @@ map = (lst, iteratee, context, count = 0) ->
   cons product, rest
 
 rmap = (lst, iteratee, context, count = 0) ->
-  return nil if nilp lst
-  rest = (if (nilp cdr lst) then nil else
-    map((cdr lst), iteratee, context, count + 1))
-  product = iteratee.call(context, (car lst), count, lst)
-  cons rest, product
+  ptr = lst
+  ret = cons()
+  while not nilp ptr
+    ret = cons (car ptr), ret
+    ptr = cdr ptr
+  ret
 
 reverse = (lst) -> rmap lst, (i) -> i
 
 filter = (lst, iteratee, context) ->
   return nil if nilp lst
   if iteratee.call(context, (car lst), lst)
-    cons (car lst), filter (cdr lst), iteratee, context
+    cons (car lst), (filter (cdr lst), iteratee, context)
   else
-    filter (cdr list), iteratee, context
-
+    filter (cdr lst), iteratee, context
 
 module.exports =
   reduce: reduce
