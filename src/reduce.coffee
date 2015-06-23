@@ -1,7 +1,9 @@
-{car, cdr, cons, listp, pairp, nilp, nil, list, listToString} = require './lists'
+{car, cdr, cons, listp, pairp, nilp,
+  nil, list, listToString} = require './lists'
 
 reduce = (lst, iteratee, memo, context) ->
   count = 0
+  console.log lst
   return memo if nilp lst
   memo = iteratee.call(context, memo, (car lst), count)
   lst = cdr lst
@@ -13,43 +15,28 @@ reduce = (lst, iteratee, memo, context) ->
     null
   memo
 
-map = (lst, iteratee, context) ->
+
+map = (lst, iteratee, context, count = 0) ->
   return nil if nilp lst
-  root = cons()
+  product = iteratee.call(context, (car lst), count, lst)
+  rest = if (nilp cdr lst) then nil else
+    map((cdr lst), iteratee, context, count + 1)
+  cons product, rest
 
-  reducer = (memo, item, count) ->
-    next = cons(iteratee.call(context, item, count, lst))
-    memo[1] = next
-    next
-
-  reduce(lst, reducer, root, context)
-  (cdr root)
-
-rmap = (lst, iteratee, context) ->
+rmap = (lst, iteratee, context, count = 0) ->
   return nil if nilp lst
-  root = cons()
-
-  reducer = (memo, item, count) ->
-    cons(iteratee.call(context, item, count, lst), memo)
-
-  reduce(lst, reducer, root, context)
+  product = (if (nilp cdr lst) then nil else
+    map((cdr lst), iteratee, context, count + 1))
+  cons product, iteratee.call(context, (car lst), count, lst)
 
 filter = (lst, iteratee, context) ->
   return nil if nilp lst
-  root = cons()
+  if iteratee.call(context, (car lst), lst)
+    cons (car lst), filter (cdr lst)
+  else
+    filter (cdr list)
 
-  reducer = (memo, item, count) ->
-    if iteratee.call(context, item, count, lst)
-      next = cons(item)
-      memo[1] = next
-      next
-    else
-      memo
-
-  reduce(lst, reducer, root, context)
-  if (pairp root) then (cdr root) else root
-
-reverse = (lst) -> reduce(lst, ((memo, value) -> cons(value, memo)), cons())
+reverse = (lst) -> rmap lst, (i) -> i
 
 module.exports =
   reduce: reduce
@@ -57,4 +44,4 @@ module.exports =
   rmap: rmap
   filter: filter
   reverse: reverse
-  
+

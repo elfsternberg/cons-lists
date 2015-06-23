@@ -13,7 +13,7 @@ nilp = (a) -> cellp(a) and a.length == 0
 nil = (-> l = []; l.__list = true; l)()
 
 cons = (a, b = nil) ->
-  l = if not (a?) then [] else if (nilp a) then b else [a, b]
+  l = if (not (a?)) then b else [a, b]
   l.__list = true
   l
 

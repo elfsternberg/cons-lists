@@ -16,4 +16,5 @@ bin/escodegen
 bin/esgenerate
 bin/mocha
 *.js
+test-reports.xml
 

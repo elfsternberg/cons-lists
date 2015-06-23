@@ -1,12 +1,13 @@
 chai = require 'chai'
 chai.should()
-expect = chai.expect 
+expect = chai.expect
 
-{listToVector, vectorToList, listToString, cons, list, nil} = require '../src/lists'
+{listToVector, vectorToList,
+  listToString, cons, list, nil} = require '../src/lists'
 {map, reduce, filter, reverse} = require '../src/reduce'
 
 id = (item) -> item
-  
+
 describe 'Map Identity Testing', ->
 
   samples = [
@@ -16,12 +17,12 @@ describe 'Map Identity Testing', ->
     cons('a', cons('b'))
     cons('a', cons('b', cons('c'))),
     cons('a', cons('b', cons('c'), nil))]
-    
+
   for t in samples
     do (t) ->
       it "should produce the same thing as #{t}", ->
         product = map(t, id)
-        expect(product).to.deep.equal(t)    
+        expect(product).to.deep.equal(t)
 
 describe 'Filter Testing Testing', ->
 
@@ -33,12 +34,12 @@ describe 'Filter Testing Testing', ->
     [vectorToList([1, 2, 3 ,4]), cons(2, cons(4))]]
 
   truth = (item) -> item % 2 == 0
-            
+
   for [t, v] in samples
     do (t, v) ->
       it "should produce the same thing as #{v}", ->
         product = filter(t, truth)
-        expect(product).to.deep.equal(v)    
+        expect(product).to.deep.equal(v)
 
 describe 'Reverse', ->
 
