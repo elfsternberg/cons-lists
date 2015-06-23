@@ -34,7 +34,7 @@ nilp(lst): (Boolean) is list an empty list?
 
 pairp(lst): (Boolean) is this a cell object?
 
-listp(lst): (Boolean) si this a list object?
+listp(lst): (Boolean) is this a list object?
 
 list:(a, b, ...): Construct a list out of the arguments
 
