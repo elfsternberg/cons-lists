@@ -36,7 +36,7 @@ pairp(lst): (Boolean) is this a cell object?
 
 listp(lst): (Boolean) is this a list object?
 
-list:(a, b, ...): Construct a list out of the arguments
+list(a, b, ...): Construct a list out of the arguments
 
 vectorToList(v): Return a cons list from a vector. Recursive: if a
 vector is encountered inside v, it will be converted to a cons list.
@@ -49,7 +49,8 @@ setcar(obj, l): Replace the contents of car(l) with obj
 
 setcdr(obj, l): Replace the contents of cdr(l) with obj
 
-cadr, cddr, cdar, caar, caddr, cdddr, cadar, cddar, caadr, cdadr: Common
+cadr(lst), cddr(lst), cdar(lst), caar(lst), caddr(lst), cdddr(lst), 
+cadar(lst), cddar(lst), caadr(lst), cdadr(lst): Common
 lisp functions that extend standard list addressing.  
 
 metacadr(string): For more complex addressing, metacadr() can be
