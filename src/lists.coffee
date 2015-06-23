@@ -58,8 +58,7 @@ module.exports =
   list: list
   nilp: nilp
   pairp: pairp
-  vectorp: vectorp
-  recordp: recordp
+  listp: listp
   vectorToList: vectorToList
   listToVector: listToVector
   setcar: (a, l) -> l[0] = a; a
