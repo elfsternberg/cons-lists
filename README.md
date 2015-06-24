@@ -1,6 +1,6 @@
-# A javascript implementation of Lisp-like cons(), using vectors<sup>1</sup>
+# A Javascript<sup>1</sup> implementation of Lisp-like cons(), using vectors
 
-<sup>1</sup>Technically, coffeescript...
+<sup>1</sup>Technically, Coffeescript, but it's just Javascript.
 
 ## Purpose
 
