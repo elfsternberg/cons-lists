@@ -8,6 +8,7 @@ expect = chai.expect
 describe "Basic list building", ->
   for [t, v] in [
     [cons(), cons()]
+    [cons(nil), cons(nil)]
     [cons('a'), cons('a')]
     [cons('a', cons('b', cons('c'))), cons('a', cons('b', cons('c')))]
     [cons('a', cons('b', cons('c'))), cons('a', cons('b', cons('c', nil)))]
