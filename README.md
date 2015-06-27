@@ -1,4 +1,6 @@
-# This library contains a javascript implementation of Lisp-like cons(), using vectors
+# A Javascript<sup>1</sup> implementation of Lisp-like cons(), using vectors
+
+<sup>1</sup>Technically, Coffeescript, but it's just Javascript.
 
 ## Purpose
 
@@ -9,14 +11,12 @@ managed repo.
 
 ## API
 
-A cons is a singly-link list consisting of *cells*, two-position
-objects.  In a true cons *list*, the leftmost cell (the "car") contains
-a data object of interest, and the rightmost cell (the "cdr") contains a
-pointer to the next cell.  (A cell in which the second object is not a
-pointer to the next cell is called a *pair*.)  Cons lists traditionally
-end with a cdr object pointing to an empty list.  The following
-functions are provided to create, identify, traverse, and modify cons
-lists.
+A cons is a singly-link list consisting of *pairs*, two-position
+objects.  In a true cons *list*, the leftmost cell (the "car")
+contains a data object of interest, and the rightmost cell (the "cdr")
+contains a pointer to the next pair.  Cons lists traditionally end
+with a cdr object pointing to an empty list.  The following functions
+are provided to create, identify, traverse, and modify cons lists.
 
 nil: An empty list, used as a static sentinel
 
@@ -32,18 +32,18 @@ cdr(lst): Return a reference to the next item in the list, or nil.
 
 nilp(lst): (Boolean) is list an empty list?
 
-pairp(lst): (Boolean) is this a cell object?
+pairp(obj): (Boolean) is this a object a pair?
 
-listp(lst): (Boolean) is this a list object?
+listp(obj): (Boolean) is this object a list?
 
 list(a, b, ...): Construct a list out of the arguments
 
-vectorToList(v): Return a cons list from a vector. Recursive: if a
+vectorToList(v): Return a cons list given a vector. Recursive: if a
 vector is encountered inside v, it will be converted to a cons list.
 
 listToVector(l): Return a vector given a cons list.  Recursive: if
-car(l) is a vector, the return list will contain a list at that
-position.
+car(l) is itself a cons list, the returned vector will contain an
+internal vector at that position.
 
 setcar(obj, l): Replace the contents of car(l) with obj
 
