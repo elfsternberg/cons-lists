@@ -1,4 +1,6 @@
-# A Javascript<sup>1</sup> implementation of Lisp-like cons(), using vectors
+# cons-lists
+
+## A Javascript<sup>1</sup> implementation of Lisp-like cons(), using vectors
 
 <sup>1</sup>Technically, Coffeescript, but it's just Javascript.
 
@@ -44,26 +46,24 @@ the qualifying function.  For example, this library does not provide
 caddddr(), but it can easily be generated: metacadr("caddddr") will
 return a function to get the data content of the fifth cell.
 
+## Requirements
+
+* `coffee-script` to compile the library.
+* `chai`, `mocha`, `coffeelint`, `mocha-jenkins-reporter` for
+development.
+
+See `package.json` for details.
+
+## Installation
+
+`npm install https://github.com/elfsternberg/cons-lists.git`
+
+## Credits
+
+Elf M. Sternberg <elf.sternberg@gmail.com>
+
 ## LICENSE AND COPYRIGHT NOTICE: NO WARRANTY GRANTED OR IMPLIED
 
 Copyright (c) 2015 Elf M. Sternberg
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-- Elf M. Sternberg <elf@pendorwright.com>
+Licensed under the MIT License.  See the `LICENSE` file for full text.
