@@ -3,6 +3,7 @@ chai.should()
 expect = chai.expect
 
 {listToVector, vectorToList, cons, list, nil,
+  cellp, pairp, listp, nilp,
   metacadr, car, cdr, cadr} = require '../src/lists'
 
 describe "Basic list building", ->
@@ -27,6 +28,20 @@ describe "Basic list traversing", ->
   it "should car cdr cdr", ->
     expect(car cdr cdr mcsimple).to.equal("c")
 
+describe "Basic list typing", ->
+  it "Should recognize an empty cell", ->
+    expect(cellp(cons())).to.equal(true)
+  it "Should recognize a nil cell", ->
+    expect(nilp(cons())).to.equal(true)
+  it "Should recognize a paired cell", ->
+    expect(cellp(cons("a", "b"))).to.equal(true)
+    expect(pairp(cons("a", "b"))).to.equal(true)
+    expect(listp(cons("a", "b"))).to.equal(false)
+  it "Should recognize a list", ->
+    expect(cellp(cons("a"))).to.equal(true)
+    expect(pairp(cons("a"))).to.equal(true)
+    expect(listp(cons("a", cons("b")))).to.equal(true)
+
 describe 'Round trip equivalence', ->
   for [t, v] in [
     [[], []]
@@ -40,9 +55,10 @@ describe 'Round trip equivalence', ->
 describe 'List Building', ->
   for [t, v] in [
     [cons(), []]
-    [cons(nil), [nil]]
+    [cons(nil), []]
     [cons('a'), ['a']]
     [cons('a', cons('b')), ['a', 'b']]
+    [cons('a', cons('b', cons(nil))), ['a', 'b']]
     [cons('a', cons('b', cons('c'))), ['a', 'b', 'c']]
     [cons('a', cons('b', cons('c'), nil)), ['a', 'b', 'c']]]
     do (t, v) ->

@@ -1,6 +1,6 @@
 vectorp = (a) -> toString.call(a) == '[object Array]'
 
-cellp = (a) -> vectorp(a) and a.__list == true
+cellp = (a) -> vectorp(a) and a.__type == 'list'
 
 pairp = (a) -> cellp(a) and (a.length == 2)
 
@@ -10,12 +10,19 @@ recordp = (a) -> Object.prototype.toString.call(a) == '[object Object]'
 
 nilp = (a) -> cellp(a) and a.length == 0
 
-nil = (-> l = []; l.__list = true; l)()
+makeAsCell = (l) ->
+  Object.defineProperty l, '__type',
+    value: 'list'
+    configurable: false
+    enumerable: false
+    writable: false
+  l
+
+nil = (-> makeAsCell([]))()
 
 cons = (a, b = nil) ->
-  l = if (not (a?)) then b else [a, b]
-  l.__list = true
-  l
+  return nil if (nilp a) and (nilp b)
+  makeAsCell if (not (a?)) then b else [a, b]
 
 car = (a) -> a[0]
 
@@ -57,6 +64,7 @@ module.exports =
   cdr: cdr
   list: list
   nilp: nilp
+  cellp: cellp
   pairp: pairp
   listp: listp
   vectorToList: vectorToList
