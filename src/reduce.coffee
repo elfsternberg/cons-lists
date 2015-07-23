@@ -1,6 +1,11 @@
 {car, cdr, cons, listp, pairp, nilp,
   nil, list, listToString} = require './lists'
 
+length = (lst, l = 0) ->
+  return l if (nilp lst) 
+  length (cdr lst), (l + 1)
+  
+
 reduce = (lst, iteratee, memo, context) ->
   count = 0
   console.log lst
@@ -40,6 +45,7 @@ filter = (lst, iteratee, context) ->
     filter (cdr lst), iteratee, context
 
 module.exports =
+  length: length
   reduce: reduce
   map: map
   rmap: rmap

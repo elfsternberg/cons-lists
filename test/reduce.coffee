@@ -4,9 +4,25 @@ expect = chai.expect
 
 {listToVector, vectorToList,
   listToString, cons, list, nil} = require '../src/lists'
-{map, reduce, filter, reverse} = require '../src/reduce'
+{map, reduce, filter, reverse, length} = require '../src/reduce'
 
 id = (item) -> item
+
+describe 'Length Testing', ->
+  
+  samples = [
+    [cons(), 0]
+    [cons(nil), 0]
+    [cons('a'), 1]
+    [cons('a', cons('b')), 2]
+    [cons('a', cons('b', cons('c'))), 3]
+    [cons('a', cons('b', cons('c'), nil)), 3]]
+
+  for [t, v] in samples
+    do (t, v) ->
+      it "should produce a length of  #{v}", ->
+        product = length(t)
+        expect(product).to.equal(v)
 
 describe 'Map Identity Testing', ->
 
