@@ -4,7 +4,7 @@ cellp = (a) -> vectorp(a) and a.__type == 'list'
 
 pairp = (a) -> cellp(a) and (a.length == 2)
 
-listp = (a) -> (pairp a) and (pairp cdr a)
+listp = (a) -> (pairp a) and (cellp cdr a)
 
 recordp = (a) -> Object.prototype.toString.call(a) == '[object Object]'
 
