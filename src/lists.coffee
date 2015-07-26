@@ -22,7 +22,7 @@ nil = (-> makeAsCell([]))()
 
 cons = (a, b = nil) ->
   return nil if (nilp a) and (nilp b)
-  makeAsCell if (not (a?)) then b else [a, b]
+  makeAsCell (if (not (a?)) then b else [a, b])
 
 car = (a) -> a[0]
 
