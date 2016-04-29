@@ -44,8 +44,8 @@ recordp = (c) -> Object.prototype.toString.call(c) == '[object Object]'
 nilp = (c) -> !!c.isList and c.length == 0
 
 cons = (a = nil, b = nil) ->
-  return nil if (nilp a) and (nilp b)
-  if (a) then ConsList(a, b) else ConsList(b)
+  return (new ConsList()) if (nilp a) and (nilp b)
+  if (a) then (new ConsList(a, b)) else (new ConsList(b))
 
 car = (c) -> c[0]
 cdr = (c) -> c[1]

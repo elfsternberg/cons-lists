@@ -1,6 +1,7 @@
 {car, cdr, cons, listp, pairp, nilp,
   nil, list, listToString} = require './lists'
 
+
 length = (lst, l = 0) ->
   return l if (nilp lst) 
   length (cdr lst), (l + 1)
@@ -20,12 +21,14 @@ reduce = (lst, iteratee, memo, context) ->
     null
   memo
 
+
 map = (lst, iteratee, context, count = 0) ->
   return nil if nilp lst
   product = iteratee.call(context, (car lst), count, lst)
   rest = if (nilp cdr lst) then nil else
     map((cdr lst), iteratee, context, count + 1)
   cons product, rest
+
 
 rmap = (lst, iteratee, context, count = 0) ->
   ptr = lst
@@ -35,7 +38,9 @@ rmap = (lst, iteratee, context, count = 0) ->
     ptr = cdr ptr
   ret
 
+
 reverse = (lst) -> rmap lst, (i) -> i
+
 
 filter = (lst, iteratee, context) ->
   return nil if nilp lst
@@ -43,6 +48,7 @@ filter = (lst, iteratee, context) ->
     cons (car lst), (filter (cdr lst), iteratee, context)
   else
     filter (cdr lst), iteratee, context
+
 
 module.exports =
   length: length
