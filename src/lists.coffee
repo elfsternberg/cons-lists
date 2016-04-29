@@ -1,32 +1,55 @@
-vectorp = (a) -> toString.call(a) == '[object Array]'
 
-cellp = (a) -> vectorp(a) and a.__type == 'list'
+# This is very clever.  Most people don't know that if you return a
+# valid object in a constructor, it becomes the new object rather than
+# the 'this' of the constructor, as most people expect.  The biggest
+# problem with this method is that you can't use instanceof; this
+# method preserves the Array signature.  It is a way of "getting
+# around" the Array decoration problem, but it's not perfect.
 
-pairp = (a) -> cellp(a) and (a.length == 2)
+ConsList = ->
+  list = Object.create(Array::)
+  list = Array.apply(list, arguments) || list;
+  for field of ConsList::
+    list[field] = ConsList::[field]
+  Object.defineProperty list, 'isList',
+    value: true,
+    configurable: false,
+    enumerable: false,
+    writeable: false
+  Object.defineProperty list, 'toString',
+    value: ->
+      return '()' if this.length == 0 
+      rs = if this.length == 2
+        if this[1].isList
+          if this[1].length == 1 then ""
+          else
+            ' ' + this[1].toString()
+        else
+          ' . ' + this[1].toString()
+      else
+        ' ' + this[1].toString()
+      '(' + this[0] + rs + ')'
+    configurable: false,
+    enumerable: false,
+    writeable: false
+  list
 
-listp = (a) -> (pairp a) and (cellp cdr a)
+nil = (-> new ConsList())()
 
-recordp = (a) -> Object.prototype.toString.call(a) == '[object Object]'
 
-nilp = (a) -> cellp(a) and a.length == 0
+vectorp = (c) -> toString.call(c) == '[object Array]'
+cellp = (c) -> !!c.isList
+pairp = (c) -> c.isList and (c.length == 2)
+listp = (c) -> c.isList and (c.length == 2) and (cellp cdr c)
+recordp = (c) -> Object.prototype.toString.call(c) == '[object Object]'
+nilp = (c) -> cellp(c) and c.length == 0
 
-makeAsCell = (l) ->
-  Object.defineProperty l, '__type',
-    value: 'list'
-    configurable: false
-    enumerable: false
-    writable: false
-  l
-
-nil = (-> makeAsCell([]))()
-
-cons = (a, b = nil) ->
+cons = (a = nil, b = nil) ->
   return nil if (nilp a) and (nilp b)
-  makeAsCell (if (not (a?)) then b else [a, b])
+  if (a) then ConsList(a, b) else ConsList(b)
 
-car = (a) -> a[0]
-
-cdr = (a) -> a[1]
+car = (c) -> c[0]
+cdr = (c) -> c[1]
 
 vectorToList = (v, p) ->
   p = if p? then p else 0
