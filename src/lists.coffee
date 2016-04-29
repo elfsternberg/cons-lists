@@ -36,13 +36,12 @@ ConsList = ->
 
 nil = (-> new ConsList())()
 
-
 vectorp = (c) -> toString.call(c) == '[object Array]'
 cellp = (c) -> !!c.isList
-pairp = (c) -> c.isList and (c.length == 2)
-listp = (c) -> c.isList and (c.length == 2) and (cellp cdr c)
+pairp = (c) -> !!c.isList and (c.length == 2)
+listp = (c) -> !!c.isList and (c.length == 2) and (cellp cdr c)
 recordp = (c) -> Object.prototype.toString.call(c) == '[object Object]'
-nilp = (c) -> cellp(c) and c.length == 0
+nilp = (c) -> !!c.isList and c.length == 0
 
 cons = (a = nil, b = nil) ->
   return nil if (nilp a) and (nilp b)
