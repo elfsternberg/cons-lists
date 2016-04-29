@@ -82,6 +82,7 @@ _annotate = (ConsList) ->
       inner l, seq
 
   {
+    List: ConsList
     cons: cons
     nil: nil
     car: car
