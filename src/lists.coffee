@@ -18,17 +18,13 @@ ConsList = ->
     writeable: false
   Object.defineProperty list, 'toString',
     value: ->
-      return '()' if this.length == 0 
-      rs = if this.length == 2
-        if this[1].isList
-          if this[1].length == 1 then ""
-          else
-            ' ' + this[1].toString()
-        else
-          ' . ' + this[1].toString()
-      else
-        ' ' + this[1].toString()
-      '(' + this[0] + rs + ')'
+      helper = (node) ->
+        return "" if node.length == 0
+        return node[0].toString() if node.length == 1
+        return node[0].toString() + " . " + node[1].toString() if not node[1].isList
+        return node[0].toString() if node[1].length == 0
+        return node[0].toString() + " " + helper(node[1])
+      '(' + helper(this) + ')'
     configurable: false,
     enumerable: false,
     writeable: false
