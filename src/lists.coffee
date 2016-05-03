@@ -55,7 +55,7 @@ _annotate = (ConsList) ->
     # have to be intercepted first.  The use of duck-typing here is
     # frustrating.
     item = if pairp(v[p]) then v[p] else
-      if (d and vectorp(v[p])) then vectorToList(v[p]) else v[p]
+      if (d and vectorp(v[p])) then vectorToList(v[p], 0, d) else v[p]
     cons(item, vectorToList(v, p + 1))
 
   list = (v...) ->
