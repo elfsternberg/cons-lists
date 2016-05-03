@@ -48,16 +48,16 @@ _annotate = (ConsList) ->
   car = (c) -> c[0]
   cdr = (c) -> c[1]
   
-  vectorToList = (v, p) ->
+  vectorToList = (v, p, d = true) ->
     p = if p? then p else 0
     if p >= v.length then return nil
     # Annoying, but since lists are represented as nested arrays, they
     # have to be intercepted first.  The use of duck-typing here is
     # frustrating.
     item = if pairp(v[p]) then v[p] else
-      if vectorp(v[p]) then vectorToList(v[p]) else v[p]
+      if (d and vectorp(v[p])) then vectorToList(v[p]) else v[p]
     cons(item, vectorToList(v, p + 1))
-  
+
   list = (v...) ->
     ln = v.length
     (nl = (a) ->
