@@ -56,7 +56,7 @@ _annotate = (ConsList) ->
     # frustrating.
     item = if pairp(v[p]) then v[p] else
       if (d and vectorp(v[p])) then vectorToList(v[p], 0, d) else v[p]
-    cons(item, vectorToList(v, p + 1))
+    cons(item, vectorToList(v, p + 1, d))
 
   list = (v...) ->
     ln = v.length
