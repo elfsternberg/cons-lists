@@ -35,7 +35,7 @@ _annotate = (ConsList) ->
   
   cons = (a = nil, b = nil) ->
     return (new ConsList()) if (nilp a) and (nilp b)
-    if (a?) then (new ConsList(a, b)) else (new ConsList(b))
+    if (a != undefined) then (new ConsList(a, b)) else (new ConsList(b))
   
   nil = (-> new ConsList())()
   

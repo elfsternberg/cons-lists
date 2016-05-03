@@ -57,6 +57,7 @@ describe 'List Building', ->
   for [t, v] in [
     [cons(), []]
     [cons(nil), []]
+    [cons(0), [0]]
     [cons('a'), ['a']]
     [cons('a', cons('b')), ['a', 'b']]
     [cons('a', cons('b', cons(nil))), ['a', 'b']]
@@ -105,3 +106,12 @@ describe 'Metacadr Complex', ->
         expect(mcadr mccomplex).to.equal(v)
         expect(mcadr mccomplex).to.equal(v)
         expect(mcadr mccomplex).to.equal(v)
+
+mcnested = ['a', 'b', ['c', 'd'], 'e']
+describe "Nested and not-nested VTOL:", ->
+  it "Should handle the nested case, as before", ->
+    t = vectorToList(mcnested)
+    expect(metacadr('cadaddr')(t)).to.equal('d')
+  it "Should handle a not-nested set", ->
+    t = vectorToList(mcnested, 0, false)
+    expect(metacadr('caddr')(t)[0]).to.equal("c")
